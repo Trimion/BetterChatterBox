@@ -1,0 +1,18 @@
+{
+  "extName": {
+    "message": "BetterChatterBox",
+    "description": "Extension name"
+  },
+  "extShortName": {
+    "message": "BCB",
+    "description": "Abbreviation"
+  },
+  "extAuthor": {
+    "message": "XYandX",
+    "description": "Development Team"
+  },
+  "extShortDesc": {
+    "message": "Чиним безвозвратно сломанное",
+    "description": "TBA"
+  }
+}
