@@ -1,0 +1,124 @@
+{
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "img/16.png",
+      "32": "img/32.png",
+      "48": "img/48.png",
+      "64": "img/64.png",
+      "96": "img/96.png",
+      "128": "img/128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "author": "__MSG_Author__",
+  "background": {
+    "service_worker": "js/background.js",
+    "type": "module"
+  },
+"content_scripts": [
+  {
+    "matches": [
+      "*://*.yandex-team.ru/*",
+      "*://*.education.taxi.yandex/*"
+    ],
+    "js": [
+      "js/modules/utils.js",
+      "js/modules/filters.js",
+      "js/modules/data.js",
+      "js/modules/MarkerModule.js",
+      "js/content.js"
+    ]
+  }
+],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "commands": {
+    "run_extension": {
+      "suggested_key": {
+        "default": "Alt+A"
+      },
+      "description": "Запустить расширение вручную"
+    },
+    "click_driver_button": {
+      "suggested_key": {
+        "default": "Alt+Z"
+      },
+      "description": "Нажать на кнопку 'Водитель'"
+    },
+    "clear_notifications": {
+      "suggested_key": {
+        "default": "Alt+Shift+X"
+      },
+      "description": "Сброс уведомлений"
+    },
+    "search_button": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Запустить поиск"
+    },
+    "run_testing": {
+      "description": "Запустить сканирование - Тестирование"
+    }
+  },
+  "default_locale": "ru",
+  "description": "__MSG_extShortDesc__",
+  "host_permissions": [
+    "*://*.yandex-team.ru/*",
+    "*://*.education.taxi.yandex/*"
+  ],
+  "icons": {
+    "16": "img/16.png",
+    "32": "img/32.png",
+    "48": "img/48.png",
+    "64": "img/64.png",
+    "96": "img/96.png",
+    "128": "img/128.png"
+  },
+  "manifest_version": 3,
+  "minimum_chrome_version": "118.0",
+  "name": "__MSG_extName__",
+  "permissions": [
+    "notifications",
+    "activeTab",
+    "windows",
+    "downloads",
+    "storage",
+    "tabs",
+    "scripting",
+    "clipboardWrite",
+    "idle",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback"
+  ],
+  "short_name": "__MSG_extShortName__",
+  "version": "2.1.5.873",
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "block_wizard",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "js/modules/*.js",
+        "js/testingSearch.js",
+        "js/buttonSearch.js",
+        "js/notifications.js"
+      ],
+      "matches": [
+        "*://*.yandex-team.ru/*",
+        "*://*.education.taxi.yandex/*"
+      ]
+    }
+  ]
+}
