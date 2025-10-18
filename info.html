@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<!--
+  This file is part of the project covered by the LICENSE file in the root directory.
+  Copyright (C) 2023-2024. All rights reserved.
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+<html lang="ru">
+<head>
+  <title>Информация о BetterChatterBox</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+  <style>
+    body {
+      background-image: linear-gradient(to bottom right, #66443c, #141115);
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: auto;
+      color: #e6d0a8;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      margin: 0;
+      font-size: 14pt;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(102, 68, 60, 0.8) 0%, rgba(82, 54, 48, 0.8) 50%, rgba(62, 41, 36, 0.8) 100%);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      background: #2a1e1c;
+      border: none;
+      border-radius: 8px;
+      color: #e6d0a8;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1em;
+    }
+
+    .tab:hover {
+      background: #3d2c28;
+      transform: translateY(-2px);
+    }
+
+    .tab.active {
+      background: #8a5a4e;
+      color: #f5e9d7;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    h1, h2, h3 {
+      color: #f5e9d7;
+      margin-top: 30px;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 0 0 10px rgba(245, 233, 215, 0.3);
+    }
+    
+    h2 {
+      font-size: 2.0em;
+    }
+    
+    h3 {
+      font-size: 1.8em;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(102, 68, 60, 0.6) 0%, rgba(82, 54, 48, 0.6) 50%, rgba(62, 41, 36, 0.6) 100%);
+      border-radius: 8px;
+      border-left: 4px solid #c89f7c;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .section:hover {
+      transform: translateX(5px);
+      background: linear-gradient(135deg, rgba(122, 78, 70, 0.7) 0%, rgba(102, 64, 58, 0.7) 50%, rgba(82, 51, 46, 0.7) 100%);
+    }
+    
+    .emoji {
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+    
+    ul, ol {
+      padding-left: 30px;
+    }
+    
+    li {
+      margin-bottom: 12px;
+    }
+    
+    .feature {
+      margin-bottom: 20px;
+      border-left: 3px solid #c89f7c;
+      padding-left: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateX(5px);
+      background: linear-gradient(135deg, rgba(102, 68, 60, 0.4) 0%, rgba(82, 54, 48, 0.4) 50%, rgba(62, 41, 36, 0.4) 100%);
+      border-radius: 4px;
+    }
+    
+    .feature-title {
+      font-weight: bold;
+      color: #f5e9d7;
+      font-size: 1.1em;
+    }
+    
+    .feature-description {
+      margin-top: 5px;
+      color: #e6d0a8;
+    }
+    
+    .warning {
+      background: linear-gradient(135deg, rgba(102, 68, 60, 0.5) 0%, rgba(82, 54, 48, 0.5) 50%, rgba(62, 41, 36, 0.5) 100%);
+      border-left: 3px solid #c89f7c;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .warning:hover {
+      transform: translateX(5px);
+      background: linear-gradient(135deg, rgba(122, 78, 70, 0.6) 0%, rgba(102, 64, 58, 0.6) 50%, rgba(82, 51, 46, 0.6) 100%);
+    }
+    
+    .warning-title {
+      color: #f5e9d7;
+      font-weight: bold;
+    }
+    
+    .warning-level {
+      display: inline-block;
+      margin-left: 10px;
+      color: #e6d0a8;
+    }
+    
+    .warning-solution {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(245, 233, 215, 0.3);
+      color: #e6d0a8;
+    }
+    
+    .back-button {
+      display: inline-block;
+      width: 210px;
+      height: 50px;
+      border-radius: 25px;
+      color: #2a1e1c;
+      font: 1.2em "Segoe UI", sans-serif;
+      background-color: #c89f7c;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      text-align: center;
+      line-height: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      background-color: #d8b08c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .center {
+      text-align: center;
+    }
+    
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    .app-title {
+      text-align: center;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      border: 2px solid #c89f7c;
+      border-radius: 12px;
+      background: rgba(200, 159, 124, 0.1);
+      box-shadow: 0 0 20px rgba(200, 159, 124, 0.2);
+      font-size: 2em;
+      font-weight: bold;
+      color: #f5e9d7;
+      text-shadow: 0 0 10px rgba(245, 233, 215, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .app-title:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(200, 159, 124, 0.3);
+    }
+
+    .hotkey-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .hotkey-button {
+      background: linear-gradient(135deg, rgba(102, 68, 60, 0.7) 0%, rgba(82, 54, 48, 0.7) 50%, rgba(62, 41, 36, 0.7) 100%);
+      border: 2px solid #c89f7c;
+      border-radius: 8px;
+      padding: 15px;
+      min-width: 200px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .hotkey-button:hover {
+      background: linear-gradient(135deg, rgba(122, 78, 70, 0.8) 0%, rgba(102, 64, 58, 0.8) 50%, rgba(82, 51, 46, 0.8) 100%);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .hotkey-combo {
+      font-weight: bold;
+      color: #f5e9d7;
+      font-size: 1.1em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .hotkey-desc {
+      color: #e6d0a8;
+    }
+
+    .settings-link {
+      color: #f5e9d7;
+      text-decoration: none;
+      border-bottom: 1px dashed #c89f7c;
+      transition: all 0.3s ease;
+    }
+
+    .settings-link:hover {
+      color: #d8b08c;
+      border-bottom-color: #d8b08c;
+    }
+
+    .settings-step {
+      background: linear-gradient(135deg, rgba(102, 68, 60, 0.7) 0%, rgba(82, 54, 48, 0.7) 50%, rgba(62, 41, 36, 0.7) 100%);
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .settings-step:hover {
+      background: linear-gradient(135deg, rgba(122, 78, 70, 0.8) 0%, rgba(102, 64, 58, 0.8) 50%, rgba(82, 51, 46, 0.8) 100%);
+      transform: translateX(5px);
+    }
+
+    .version-badge {
+      display: inline-block;
+      background: #c89f7c;
+      color: #2a1e1c;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      margin-left: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .bug-fixed {
+      border-left: 3px solid #c89f7c;
+      padding-left: 15px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+    }
+
+    .bug-fixed:hover {
+      background: rgba(200, 159, 124, 0.1);
+      transform: translateX(5px);
+    }
+
+    .copy-link {
+      cursor: pointer;
+      color: #f5e9d7;
+      display: inline-block;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+      background: rgba(200, 159, 124, 0.1);
+      padding: 5px 10px;
+      border-radius: 4px;
+      border: 1px solid #c89f7c;
+      font-size: 0.9em;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    
+    .copy-link:hover {
+      color: #d8b08c;
+      background: rgba(216, 176, 140, 0.1);
+      border-color: #d8b08c;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .copy-success {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BetterChatterBox <span class="version-badge">v2.1.6.3</span></h1>
+    
+    <div class="tabs">
+      <button class="tab active" data-tab="features" style="flex: 1;">Функции</button>
+      <button class="tab" data-tab="installation" style="flex: 1;">Установка</button>
+      <button class="tab" data-tab="hotkeys" style="flex: 1;">Работа модулей</button>
+      <button class="tab" data-tab="settings" style="flex: 1;">Настройки</button>
+    </div>
+    
+    <div class="tabs" style="margin-top: -20px;">
+      <button class="tab" data-tab="changelog" style="width: 100%;">Политика использования</button>
+    </div>
+
+    <div id="features" class="tab-content active">
+      <div class="section">
+        <h2>📰 Новое в версии 2.1.6.3</h2>
+        <div class="feature">
+          <div class="feature-title">✨ Новый функционал</div>
+          <div class="feature-description">
+            <ul>
+              <li>📌 **Модуль Сканирование — Расчёт верный** - автоматический поиск и анализ блоков "Финальный расчёт" на странице прайсинга и вывод значений в буфер обмена.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">🪲🐞 Баги</div>
+          <div class="feature-description">
+            На момент запуска баги не обнаружены.
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🪧 Функционал</h2>
+        <div class="feature">
+          <div class="feature-title">📌 Открытие карточки водителя</div>
+          <div class="feature-description">
+            Позволяет открыть карточку водителя нажатием комбинации клавиш [ALT+Z] без необходимости искать надпись "Водитель" в блоке с гиперссылками.
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Поиск ВУ и страны курьера</div>
+          <div class="feature-description">
+            В момент загрузки тикета выдаёт уведомление, показывающее ВУ курьера и его страну.
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Блок «ПОИСК»</div>
+          <div class="feature-description">
+            <ul>
+              <li>📎 Карточка</li>
+              <li>📎 Поиск тегов auto_courier и walking_courier</li>
+              <li>📎 Поиск пользовательских тегов</li>
+            </ul>
+            <p>Проводит в карточке «Водитель» поиск информации о профессии, наличии ИП и самозанятости.</p>
+            <p>Проверяет наличие тегов auto_courier и walking_courier.</p>
+            <p>Проверяет наличие тегов, которые укажет сам пользователь для поиска.</p>
+            <p>По завершении поиска выдаёт уведомление, содержащее найденную информацию.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Автопоиск пресетов</div>
+          <div class="feature-description">
+            <p>Автоматически запускает поиск пресетов при загрузке тикета. Функция работает в фоновом режиме и не требует ручного запуска.</p>
+            <p>Можно настроить в настройках расширения - включить или отключить автопоиск.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Автопоиск тестирования</div>
+          <div class="feature-description">
+            <p>Автоматически запускает сканирование тестирования курьера при загрузке тикета. Определяет какое тестирование прошёл курьер и на какую оценку.</p>
+            <p>Можно настроить в настройках расширения - включить или отключить автопоиск.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Автопоиск последних заказов</div>
+          <div class="feature-description">
+            <p>Автоматически ищет информацию о последних заказах курьера при загрузке тикета. Показывает тариф и статус последних заказов.</p>
+            <p>Можно настроить в настройках расширения - включить или отключить автопоиск.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Сапблок «ПОИСК» — пресеты</div>
+          <div class="feature-description">
+            <ul>
+              <li>Позволяет выбирать, какими блоками поиска пользоваться в текущий момент.</li>
+              <li>Позволяет настроить до трёх пользовательских пресетов поиска тегов.</li>
+            </ul>
+          </div>
+        </div>
+	   <div class="feature">
+          <div class="feature-title">📌 Сапблок «ПОИСК» — вывод текста во внутренний комментарий</div>
+          <div class="feature-description">
+            <ul>
+              <li>Позволяет по желанию выводить текст уведомлений с найденными тегами и профессией во внутренний комментарий.</li>
+              <li>Можно индивидуально настроить вывод текста во внутренний комментарий либо отключить его.</li>
+            </ul>
+          </div>
+        </div>
+	  <div class="feature">
+          <div class="feature-title">📌 Автоматическое заполнение формы смс</div>
+          <div class="feature-description">
+            <ul>
+              <li>Автоматически заполняет форму смс за пользователя.</li>
+              <li>Можно индивидуально настроить заполняемый текст в поле "Текст".</li>
+            </ul>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Автопоиск пресетов</div>
+          <div class="feature-description">
+            <p>Автоматически запускает поиск пресетов при загрузке тикета. Функция работает в фоновом режиме и не требует ручного запуска.</p>
+            <p>Можно настроить в настройках расширения - включить или отключить автопоиск.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Автопоиск тестирования</div>
+          <div class="feature-description">
+            <p>Автоматически запускает сканирование тестирования курьера при загрузке тикета. Определяет какое тестирование прошёл курьер и на какую оценку.</p>
+            <p>Можно настроить в настройках расширения - включить или отключить автопоиск.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Автопоиск последних заказов</div>
+          <div class="feature-description">
+            <p>Автоматически ищет информацию о последних заказах курьера при загрузке тикета. Показывает детали последних выполненных заказов.</p>
+            <p>Можно настроить в настройках расширения - включить или отключить автопоиск.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Модуль работы с тикетами</div>
+          <div class="feature-description">
+            <p>Улучшенная работа с тикетами и валидация ID. Позволяет быстро открывать тикеты по ID с проверкой корректности формата.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Импорт/Экспорт настроек</div>
+          <div class="feature-description">
+            <p>Позволяет сохранить все настройки, которые уже были введены в приложение, чтобы каждый раз не вводить их заново</p>
+            <p>Как работает:</p>
+            <ul>
+              <li>Необходимо нажать на кнопку «Экспортировать настройки».</li>
+              <li>Сохранить файл с настройками на своём компьютере.</li>
+              <li>После обновления приложения нужно открыть настройки и нажать кнопку "Импортировать настройки".</li>
+              <li>Выберите сохранённый файл и загрузите настройки.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Сброс уведомлений</div>
+          <div class="feature-description">
+            Закрывает все текущие уведомления на экране.
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Поиск пройденного тестирования</div>
+          <div class="feature-description">
+            Позволяет определять какое тестирование прошёл курьер на какую оценку.
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Маркер</div>
+          <div class="feature-description">
+            <p>С помощью цветовой индикации выделяет на всей странице тот или иной текст.</p>
+            <p>[NEW] Добавлены настройки с функцией добавления новых полей для значений, которые необходимо выделять. Максимальное количество полей — 15.</p>
+            <p>✏️Применение:</p>
+            <ul>
+              <li>Определение, находился ли тикет в линии Актив Отмены или ещё не был там.</li>
+              <li>Цветовая индикация линии, в которой решается тикет с целью самоконтроля — чтобы случайно не решить тикет в линии, где этого делать нельзя.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">📌 Косметические улучшения</div>
+          <div class="feature-description">
+            <li>Ускоряет загрузку страниц крутилки путём удаления нежелательных элементов с экрана, которые тратят ресурсы компьютера🤞</li>
+		    <li>Пожалуйста, не используйте эту опцию, если вы пользуетесь WIZARD — возможны ошибки.</li>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="installation" class="tab-content">
+      <div class="section">
+        <h2>✅ Установка</h2>
+        <div class="feature">
+          <div class="feature-description">
+            <ol>
+              <li>Скачать файл расширения.</li>
+              <li>Открыть папку, куда был скачан файл расширения.</li>
+              <li>Открыть браузер.</li>
+              <li>Перейти по ссылке: browser://tune/ <span class="copy-link" data-copy-text="browser://tune/">[копировать ссылку]</span></li>
+              <li>Перенести файл из папки на свободное пространство открытой вкладки.</li>
+              <li>Дождаться появления контекстного окна.</li>
+              <li>Подтвердить установку.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hotkeys" class="tab-content">
+      <div class="section">
+        <h2>🕹 Запуск</h2>
+        <div class="feature">
+          <div class="feature-title">Блок «ПОИСК»</div>
+          <div class="feature-description">
+            <p>Вариант 1:</p>
+            <ol>
+              <li>Необходимо вывести иконку расширения в правый верхний угол.</li>
+              <li>Нажмите на иконку расширения.</li>
+              <li>После нажатия откроется всплывающее меню приложения.</li>
+              <li>Нажмите на кнопку «ПОИСК», чтобы запустить сканирование.</li>
+            </ol>
+            <p>Вариант 2:</p>
+            <p>— Необходимо нажать комбинацию клавиш ALT+SHIFT+S.</p>
+          </div>
+        </div>
+	   <div class="feature">
+          <div class="feature-title">Сапблок «ПОИСК» — вывод текста во внутренний комментарий</div>
+          <div class="feature-description">
+            <ol>
+              <li>Необходимо перейти в настройки расширения.</li>
+              <li>Найдите блок «Выбор пресета».</li>
+              <li>Внутри необходимо найти текст «Выводить текст уведомления во внутренний комментарий нажатия» — справа находится тумблер переключения опции.</li>
+              <li>Настройки по середине позволяют гибко определить, какой именно текст писать во внутренний комментарий после осуществления поиска.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Автоматическое заполнение формы смс</div>
+          <div class="feature-description">
+            <ol>
+              <li>Необходимо перейти в главное меню расширения (нажать на иконку).</li>
+              <li>Найдите кнопку «Отправка СМС[BETA]».</li>
+              <li>После этого нужно выбрать необходимый пункт. Всё остальное программа сделает сама. Если нажать кнопку не из тикета, ID тикета вставлен не будет!.</li>
+			  <li>Если нажать кнопку не из тикета, ID тикета вставлен не будет!.</li>
+              <li>Шестерёнка справа от каждой кнопки позволяет индивидуально настроить текст, который программа будет вставлять в поле текста смс.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Сброс уведомлений</div>
+          <div class="feature-description">
+            <p>Вариант 1:</p>
+            <ol>
+              <li>Необходимо вывести иконку расширения в правый верхний угол.</li>
+              <li>Нажмите на иконку расширения.</li>
+              <li>После нажатия откроется всплывающее меню приложения.</li>
+              <li>Нажмите на кнопку «Сброс уведомлений», чтобы закрыть все уведомления на экране.</li>
+            </ol>
+            <p>Вариант 2:</p>
+            <p>— Необходимо нажать комбинацию клавиш ALT+SHIFT+X.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Поиск пройденного тестирования</div>
+          <div class="feature-description">
+            <ol>
+              <li>Необходимо открыть меню расширения.</li>
+              <li>Нажать кнопку «Сканирование».</li>
+              <li>В новом открывшемся меню нужно выбрать кнопку «Тестирование».</li>
+            </ol>
+            <p>Остальное программа сделает самостоятельно.</p>
+            <p>При желании можно настроить запуск сканирования на комбинацию клавиш.</p>
+            <p>Сделать это можно в настройках расширений в браузере по ссылке:</p>
+            <p>browser://tune/?id=amihiobidokdoalhnlgbfdhfjekahfbj <span class="copy-link" data-copy-text="browser://tune/?id=amihiobidokdoalhnlgbfdhfjekahfbj">[копировать ссылку]</span></p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Маркер</div>
+          <div class="feature-description">
+            <ol>
+              <li>В настройках приложения необходимо активировать переключатель маркера.</li>
+              <li>Введите слова или словосочетания, которые требуется выделять.</li>
+              <li>В палитре справа выберите цвет выделения.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-title">Автопоиск (новые функции)</div>
+          <div class="feature-description">
+            <p><strong>Автопоиск пресетов:</strong></p>
+            <ol>
+              <li>Функция работает автоматически при загрузке тикета</li>
+              <li>Не требует ручного запуска</li>
+              <li>Можно отключить в настройках расширения</li>
+            </ol>
+            <p><strong>Автопоиск тестирования:</strong></p>
+            <ol>
+              <li>Автоматически запускается при загрузке тикета</li>
+              <li>Сканирует информацию о тестировании курьера</li>
+              <li>Можно отключить в настройках расширения</li>
+            </ol>
+            <p><strong>Автопоиск последних заказов:</strong></p>
+            <ol>
+              <li>Автоматически запускается при загрузке тикета</li>
+              <li>Ищет информацию о последних заказах курьера</li>
+              <li>Можно запустить вручную через меню расширения</li>
+              <li>Можно отключить в настройках расширения</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+             <div class="section">
+         <h2>📌 Горячие клавиши по умолчанию</h2>
+         <div class="hotkey-container">
+           <div class="hotkey-button">
+             <span class="hotkey-combo">ALT + Z</span>
+             <span class="hotkey-desc">Открытие карточки «Водитель»</span>
+           </div>
+           <div class="hotkey-button">
+             <span class="hotkey-combo">ALT + A</span>
+             <span class="hotkey-desc">Запуск модуля поиска и определения страны и номера ВУ</span>
+           </div>
+           <div class="hotkey-button">
+             <span class="hotkey-combo">ALT + SHIFT + X</span>
+             <span class="hotkey-desc">Удаление уведомлений на экране</span>
+           </div>
+           <div class="hotkey-button">
+             <span class="hotkey-combo">ALT + SHIFT + S</span>
+             <span class="hotkey-desc">Запуск модуля поиска тегов и профессии</span>
+           </div>
+                       <div class="hotkey-button">
+              <span class="hotkey-combo">Тестирование</span>
+              <span class="hotkey-desc">Можно настроить</span>
+            </div>
+            <div class="hotkey-button">
+              <span class="hotkey-combo">Последние заказы</span>
+              <span class="hotkey-desc">Можно настроить</span>
+            </div>
+  		            <div class="hotkey-button">
+              <span class="hotkey-combo">Открыть меню СМС</span>
+              <span class="hotkey-desc">Можно настроить</span>
+            </div>
+
+         </div>
+         <div class="feature" style="margin-top: 20px; text-align: center;">
+           <div class="feature-description">
+             <p><strong>💡 Все горячие клавиши можно настроить в настройках расширения!</strong></p>
+             <p>Перейдите в меню расширений → BetterChatterBox → Подробнее → Горячие клавиши</p>
+           </div>
+         </div>
+       </div>
+    </div>
+
+    <div id="settings" class="tab-content">
+      <div class="section">
+        <h2>⚙️ Настройки</h2>
+        <div class="settings-step">
+          <h3>Как изменить или добавить новые горячие клавиши</h3>
+          <ol>
+            <li>Перейти в меню расширений</li>
+            <li>Найти в списке BetterChatterBox</li>
+            <li>Нажать на открывающуюся надпись «Подробнее»</li>
+            <li>Ввести желаемые значения.</li>
+          </ol>
+        </div>
+        <div class="settings-step">
+          <h3>Как вывести расширение в быстрый доступ в правый верхний угол</h3>
+          <ol>
+            <li>Перейти в меню расширений</li>
+            <li>Найти в списке BetterChatterBox</li>
+            <li>Нажать на открывающуюся надпись «Подробнее»</li>
+            <li>Убедитесь, что переключатель приложения стоит в положении «Включено».</li>
+            <li>Нажать надпись «Показать кнопку»</li>
+          </ol>
+        </div>
+        <div class="settings-step">
+          <h3>Как отключить ненужные модули</h3>
+          <ol>
+            <li>Необходимо нажать на иконку расширения</li>
+            <li>В открывшемся диалоговом окне нажмите кнопку «Настройки»</li>
+            <li>Выберите необходимые лично вам тумблеры и заполнить нужные лично вам поля.</li>
+            <li>Нажмите в самом низу на зелёную кнопку «Применить»</li>
+          </ol>
+        </div>
+        <div class="settings-step">
+          <h3>Как настроить автопоиск</h3>
+          <ol>
+            <li>Перейдите в настройки расширения</li>
+            <li>Найдите раздел «Автопоиск»</li>
+            <li>Включите или отключите нужные функции автопоиска:
+              <ul>
+                <li>Автопоиск пресетов</li>
+                <li>Автопоиск тестирования</li>
+                <li>Автопоиск последних заказов</li>
+              </ul>
+            </li>
+            <li>Нажмите кнопку «Применить» для сохранения настроек</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔍 Переключатель «Точный поиск»</h2>
+        <div class="feature">
+          <div class="feature-description">
+            <p>Переключатель точного поиска находится справа от палитры. Он необходим, если вы используете слова с одинаковым содержимым. Такие как:</p>
+            <ul>
+              <li>functional_driver_moderation — вот здесь необходимо активировать тумблер, чтобы программа искала именно это словосочетание без дополнительных слов или префиксов.</li>
+              <li>functional_driver_moderation_activity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="changelog" class="tab-content">
+      <div class="section" style="border-left: 4px solid #c89f7c;">
+        <h2 style="color: #c89f7c;">⚠️ Известные баги</h2>
+        <div class="warning">
+          <div class="warning-title">�� «Багов нет? Так не бывает!»</div>
+          <div class="warning-level">Уровень угрозы: 🔴 — критический</div>
+          <div class="warning-solution" style="border-top: 1px solid rgba(245, 233, 215, 0.3);">
+            Отсутствие багов говорит о том, что баг есть и он влияет на нашу работу, однако мы о нём не знаем. Необходимо быть крайне осторожным...
+          </div>
+        </div>
+      </div>
+
+      <div class="section" style="border-left: 4px solid #FF0000;">
+        <h2 style="color: #FF0000;">⛔️ Политика безопасности</h2>
+        <div class="feature" style="border-left: 3px solid #FF0000;">
+          <div class="feature-description">
+            <ul>
+              <li>👉 Приложение не сохраняет информацию.</li>
+              <li>👉 Приложение не собирает информацию и данные о ком—либо или чём—либо.</li>
+              <li>👉 Приложение работает локально и не имеет базы данных, куда могло бы собирать информацию.</li>
+              <li>👉 Приложение не может собирать статистику.</li>
+              <li>👉 Приложение не может получить доступ к вашим данным.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="feature" style="border-left: 3px solid #FF0000;">
+          <div class="feature-title" style="color: #FF0000;">🚫 Что делает приложение:</div>
+          <div class="feature-description">
+            <ul>
+              <li>👉 Приложение ищет информацию в доступных источниках и выводит её в формате браузерного уведомления.</li>
+              <li>👉 Приложение помогает специалистам поддержки работать эффективнее, позволяя быстрее искать ту или иную информацию в тикете.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📝 Использование расширения согласовано</h2>
+        <div class="feature">
+          <div class="feature-description">
+            <p>🖍 Номер таска СиБ: ESA—1134</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 style="color: #c89f7c; text-align: center; margin-bottom: 20px; font-size: 1.9em; text-shadow: 0 0 10px rgba(245, 233, 215, 0.3);">📌 Поскольку расширение опубликовано под лицензией GNU AGPLv3, вы можете:</h3>
+        <div class="feature" style="background: linear-gradient(135deg, rgba(102, 68, 60, 0.6) 0%, rgba(82, 54, 48, 0.6) 50%, rgba(62, 41, 36, 0.6) 100%); border-radius: 12px; padding: 25px; box-shadow: 0 0 15px rgba(245, 233, 215, 0.1);">
+          <div class="feature-description">
+            <ol style="list-style-type: none; padding: 0;">
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Использовать:</strong> Вы можете свободно использовать это программное обеспечение для любых целей, включая коммерческое использование.</li>
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Изучать:</strong> Вы имеете право изучать исходный код и адаптировать его под свои нужды.</li>
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Модифицировать:</strong> Вы можете изменять и улучшать это программное обеспечение, создавая его производные версии.</li>
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Распространять:</strong> Вы можете распространять копии как оригинального программного обеспечения, так и его модифицированных версий. При этом вы обязаны использовать ту же лицензию AGPLv3 для распространения.</li>
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Предоставлять исходный код:</strong> Если вы распространяете это программное обеспечение или предоставляете к нему доступ через сеть (например, как веб—сервис), вы обязаны предоставлять исходный код пользователям, которые используют это программное обеспечение.</li>
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Сообщать о лицензии:</strong> При копировании или распространении программного обеспечения не забудьте включить уведомление о лицензии AGPLv3 и копию самой лицензии.</li>
+            </ol>
+            <p style="margin-top: 25px; font-weight: bold; color: #c89f7c; text-align: center; padding: 10px; border-bottom: 1px solid rgba(245, 233, 215, 0.3); border-top: 1px solid rgba(245, 233, 215, 0.3);">Также лицензия AGPLv3 требует соблюдения следующих условий:</p>
+            <ol style="list-style-type: none; padding: 0; margin-top: 20px;">
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Сохранение уведомления об авторских правах:</strong> При копировании, распространении или модификации исходного кода вы должны сохранить все уведомления об авторских правах. Это включает указание оригинальных авторов программного обеспечения.</li>
+              <li style="margin-bottom: 15px; padding: 10px; border-left: 3px solid #c89f7c; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); padding-left: 20px; border-radius: 0 8px 8px 0;"><strong style="color: #c89f7c;">Указание авторства в изменённых версиях:</strong> Если вы создаёте модифицированные версии программного обеспечения, вы должны ясно указать, что вы внесли изменения, и оставить упоминание об оригинальных авторах. Это помогает сохранить историю разработки и признание вклада первоначальных разработчиков.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 style="color: #c89f7c; text-align: center; margin-bottom: 20px; font-size: 1.9em; text-shadow: 0 0 10px rgba(245, 233, 215, 0.3);">📌 Отказ от ответственности и уведомление о товарных знаках</h3>
+        <div class="feature" style="background: linear-gradient(135deg, rgba(102, 68, 60, 0.6) 0%, rgba(82, 54, 48, 0.6) 50%, rgba(62, 41, 36, 0.6) 100%); border-radius: 12px; padding: 25px; box-shadow: 0 0 15px rgba(245, 233, 215, 0.1);">
+          <div class="feature-description">
+            <p style="padding: 15px; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); border-left: 3px solid #c89f7c; border-radius: 0 8px 8px 0; margin-bottom: 20px;">Данное программное обеспечение предоставляется "как есть", без каких—либо явных или подразумеваемых гарантий, включая, помимо прочего, гарантии товарной пригодности, соответствия определённой цели и отсутствия нарушений. Ни авторы, ни правообладатели не несут ответственности за какие—либо претензии, убытки или другие обязательства, будь то в результате действия договора, правонарушения или иным образом, возникающие из использования данного программного обеспечения или в связи с его использованием.</p>
+            <p style="padding: 15px; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); border-left: 3px solid #c89f7c; border-radius: 0 8px 8px 0; margin-bottom: 20px;">Все товарные знаки и названия, упомянутые в данном программном обеспечении или документации, являются собственностью их соответствующих владельцев. Упоминание этих товарных знаков и названий не подразумевает, что они поддерживают, спонсируют или каким—либо образом связаны с данным программным обеспечением. Использование данных товарных знаков и названий в данном программном обеспечении осуществляется исключительно для идентификации или справочных целей и не даёт права использовать эти товарные знаки и названия в своих целях без разрешения соответствующих правообладателей.</p>
+            <p style="padding: 15px; background: linear-gradient(135deg, rgba(102, 68, 60, 0.3) 0%, rgba(82, 54, 48, 0.3) 50%, rgba(62, 41, 36, 0.3) 100%); border-left: 3px solid #c89f7c; border-radius: 0 8px 8px 0;">Пожалуйста, обратите внимание, что данное расширение не передаёт и не сохраняет никакие данные пользователей. Вся информация обрабатывается локально на устройстве пользователя, и ни одна часть данных не отправляется на удалённые серверы и не сохраняется ни в каком виде.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="feature">
+          <div class="feature-description">
+            <p><strong>Навсегда не ваши, команда <em>XYandX:</em></strong></p>
+            <ul>
+              <li>👨‍💻 <strong>Тимлид и автор идеи</strong>: <a href="https://t.me/Rusokost" class="settings-link">@Rusokost</a></li>
+              <li>👨‍💻 <strong>Ведущий разработчик</strong>: <a href="https://t.me/Rusokost" class="settings-link">@Rusokost</a></li>
+              <li>�� <strong>Участвовавший в разработке приложения</strong>: <a href="https://t.me/NN_LordArrin" class="settings-link">@NN_LordArrin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>💌 Планы разработчиков</h2>
+        <div class="feature">
+          <div class="feature-description">
+            <ul>
+              <li>— Полуавтоматическое закрепление заказа при нажатии на копирование id заказа (меньше действий — выше скорость)</li>
+              <li>— Поиск номера парка</li>
+              <li>— Поиск пройденного фотоконтроля после нажатия на кнопку «Фотоконтроль» в карточке водителя.</li>
+              <li>— Поиск блокировок и ограничений водителя после открытия карточки водителя.</li>
+              <li>— Автоматическое введение внутреннего комментария в поле внутреннего комментария для временного ответа/поиска информации/уточнения у капитана.</li>
+              <li>— Проверка вины исполнителя для линии ручная сортировка.</li>
+              <li>— Автозаполнение таска на багхантеров.</li>
+              <li>— Отображение по каким тарифам были сделаны последние 2-4 заказа, в порядке, в котором оно отображается в заказах ву.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="center">
+        <a href="options.html" class="back-button">Настройки</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="copy-script.js"></script>
+</body>
+</html> 
